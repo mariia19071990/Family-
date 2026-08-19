@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дружная семья</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --bg: #fdfbf7;
+            --card-bg: #ffffff;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), #4a6572;
+            color: white;
+            text-align: center;
+            padding: 4.5rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .main-title {
+            text-align: center;
+            color: var(--primary);
+            margin: 2.5rem 0 1.5rem;
+            position: relative;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Оформление веток */
+        .branch-section {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #eaeaea;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .branch-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .branch-title span {
+            font-size: 1.5rem;
+        }
+
+        /* Общее фото семьи в ветке */
+        .branch-banner {
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: block;
+        }
+
+        /* Карточки членов семьи */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Фотографии участников */
+        .avatar-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 0.85rem;
+            display: block;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            background-color: #f1f3f5;
+        }
+
+        .member-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .member-role {
+            display: inline-block;
+            font-size: 0.8rem;
+            background: #fff3e6;
+            color: var(--accent);
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+        }
+
+        .member-card p {
+            font-size: 0.88rem;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Дружная семья</h1>
+        <p>Наши поколения, ветви и общая история</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="main-title">Ветви нашего рода</h2>
+
+        <!-- ВЕТКА 1: ПАРКАЕВЫ -->
+        <section class="branch-section">
+            <h3 class="branch-title"><span>🌿</span> Семья Паркаевых</h3>
+            
+            <img src="https://i.postimg.cc/NFyDLsDF/DSC-1149.jpg" alt="Семья Паркаевых" class="branch-banner">
+
+            <div class="members-grid">
+                <div class="member-card">
+                    <img src="https://i.postimg.cc/vB2XQgrV/IMG-4801.jpg" alt="Михаил Паркаев" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Михаил'">
+                    <h3>Михаил Паркаев</h3>
+                    <span class="member-role">Папа</span>
+                    <p>Опора и глава семьи, мастер на все руки и вдохновитель.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/maria_yuzhanina.jpg" alt="Мария Южанина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Мария'">
+                    <h3>Мария Южанина</h3>
+                    <span class="member-role">Мама</span>
+                    <p>Хранительница домашнего уюта, заботы и тепла.</p>
+                </div>
+                <div class="member-card">
+                    <img src="https://i.postimg.cc/JnYK1Db9/IMG-5049.jpg" alt="Вера Паркаева" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Вера'">
+                    <h3>Вера Паркаева</h3>
+                    <span class="member-role">Дочь</span>
+                    <p>Радость семьи, новые открытия, учеба и творчество.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВЕТКА 2: БАМБУРОВЫ-СКУЛКИНЫ -->
+        <section class="branch-section">
+            <h3 class="branch-title"><span>🏡</span> Семья Бамбуровых-Скулкиных</h3>
+            <div class="members-grid">
+                <div class="member-card">
+                    <img src="images/valery_skulkin.jpg" alt="Валерий Скулкин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Валерий'">
+                    <h3>Валерий Скулкин</h3>
+                    <span class="member-role">Папа</span>
+                    <p>Надежная поддержка, мудрость и душевные разговоры.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/marina_bamburova.jpg" alt="Марина Бамбурова" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Марина'">
+                    <h3>Марина Бамбурова</h3>
+                    <span class="member-role">Мама</span>
+                    <p>Энергия, забота о близких и сердце семейного очага.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/alexandra_skulkina.jpg" alt="Александра Скулкина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Александра'">
+                    <h3>Александра Скулкина</h3>
+                    <span class="member-role">Старшая дочь</span>
+                    <p>Целеустремленность, творчество и новые достижения.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/anastasia_skulkina.jpg" alt="Анастасия Скулкина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Анастасия'">
+                    <h3>Анастасия Скулкина</h3>
+                    <span class="member-role">Младшая дочь</span>
+                    <p>Улыбки, любознательность и яркие увлечения.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВЕТКА 3: БАМБУРОВЫ-ЮЖАНИНЫ -->
+        <section class="branch-section">
+            <h3 class="branch-title"><span>☀️</span> Семья Бамбуровых-Южаниных</h3>
+            
+            <img src="https://i.postimg.cc/wMt23q2s/IMG-2989.jpg" alt="Семья Бамбуровых-Южаниных" class="branch-banner">
+
+            <div class="members-grid">
+                <div class="member-card">
+                    <img src="https://i.postimg.cc/d1Nnqk2C/IMG-4825.jpg" alt="Бабушка Аля" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Бабушка+Аля'">
+                    <h3>Бабушка Аля</h3>
+                    <span class="member-role">Бабушка</span>
+                    <p>Хранительница семейных корней, неиссякаемая мудрость, забота и любовь.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/sergey_yuzhanin.jpg" alt="Сергей Южанин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Сергей'">
+                    <h3>Сергей Южанин</h3>
+                    <span class="member-role">Папа</span>
+                    <p>Мудрый советчик, надежная защита и опора для всех близких.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/elena_bamburova.jpg" alt="Елена Бамбурова" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Елена'">
+                    <h3>Елена Бамбурова</h3>
+                    <span class="member-role">Мама</span>
+                    <p>Душа семьи, неиссякаемая забота, гармония и тепло.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/maria_yuzhanina_branch3.jpg" alt="Мария Южанина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Мария'">
+                    <h3>Мария Южанина</h3>
+                    <span class="member-role">Дочь</span>
+                    <p>Связующая нить поколений, искренность и доброта.</p>
+                </div>
+                <div class="member-card">
+                    <img src="images/leonid_yuzhanin.jpg" alt="Леонид Южанин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Леонид'">
+                    <h3>Леонид Южанин</h3>
+                    <span class="member-role">Сын</span>
+                    <p>Инициативность, интерес к миру и новые победы.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        Дружная семья &copy; 2026
+    </footer>
+
+</body>
+</html>
