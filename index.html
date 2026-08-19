@@ -1,287 +1,384 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дружная семья</title>
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --accent: #e67e22;
-            --bg: #fdfbf7;
-            --card-bg: #ffffff;
-            --text: #333333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Семейное древо и летопись рода</title>
+  <style>
+    :root {
+      --primary: #2d5a27;
+      --primary-light: #e8f0e6;
+      --secondary: #8b5a2b;
+      --secondary-light: #f5ede6;
+      --bg: #f9fbf8;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-muted: #667c71;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+    }
 
-        header {
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), #4a6572;
-            color: white;
-            text-align: center;
-            padding: 4.5rem 1rem;
-        }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
-        }
+    header {
+      text-align: center;
+      padding: 40px 20px 30px;
+    }
 
-        header p {
-            font-size: 1.15rem;
-            opacity: 0.95;
-        }
+    header h1 {
+      font-size: 2.4rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
 
-        .main-title {
-            text-align: center;
-            color: var(--primary);
-            margin: 2.5rem 0 1.5rem;
-            position: relative;
-        }
+    .elder-section {
+      background: linear-gradient(135deg, #f0f7ee 0%, #ffffff 100%);
+      border: 2px solid var(--primary-light);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 35px;
+      box-shadow: var(--shadow);
+    }
 
-        .main-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            margin: 0.5rem auto 0;
-            border-radius: 2px;
-        }
+    .elder-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
 
-        /* Оформление веток */
-        .branch-section {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid #eaeaea;
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
+    .elder-badge {
+      background-color: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-        .branch-title {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .elder-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
 
-        .branch-title span {
-            font-size: 1.5rem;
-        }
+    .meta-info {
+      font-size: 0.95rem;
+      color: var(--secondary);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
 
-        /* Общее фото семьи в ветке */
-        .branch-banner {
-            width: 100%;
-            max-height: 320px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            display: block;
-        }
+    .branches-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
 
-        /* Карточки членов семьи */
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 1.25rem;
-        }
+    .branch-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
 
-        .member-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+    .branch-title {
+      font-size: 1.6rem;
+      color: var(--secondary);
+      border-bottom: 2px solid var(--secondary-light);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        .member-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
+    .person-card {
+      background: #fafcf9;
+      border: 1px solid #edf2ed;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-        /* Фотографии участников */
-        .avatar-img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 0.85rem;
-            display: block;
-            border: 3px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            background-color: #f1f3f5;
-        }
+    .person-card:last-child {
+      margin-bottom: 0;
+    }
 
-        .member-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-            color: var(--primary);
-        }
+    .person-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
 
-        .member-role {
-            display: inline-block;
-            font-size: 0.8rem;
-            background: #fff3e6;
-            color: var(--accent);
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-bottom: 0.6rem;
-        }
+    .person-name {
+      font-size: 1.25rem;
+      color: var(--text);
+      font-weight: 700;
+    }
 
-        .member-card p {
-            font-size: 0.88rem;
-            color: #555;
-        }
+    .tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            color: #888;
-            font-size: 0.9rem;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 3rem;
-        }
-    </style>
+    .person-relation {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .person-desc {
+      font-size: 0.98rem;
+      color: #3f4e4f;
+      line-height: 1.65;
+    }
+
+    .person-desc p {
+      margin-bottom: 8px;
+    }
+
+    .person-desc p:last-child {
+      margin-bottom: 0;
+    }
+
+    .vera-photo {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
+  <div class="container">
     <header>
-        <h1>Дружная семья</h1>
-        <p>Наши поколения, ветви и общая история</p>
+      <h1>Семейное Древо и Летопись Рода</h1>
+      <p>История поколений, память о корнях, наши победы, увлечения и тёплые воспоминания</p>
     </header>
 
-    <div class="container">
-        
-        <h2 class="main-title">Ветви нашего рода</h2>
+    <!-- СТАРИЙШИНА РОДА -->
+    <section class="elder-section">
+      <div class="elder-header">
+        <span class="elder-badge">Старейшина семьи</span>
+      </div>
+      <h2 class="elder-title">Бамбурова Алевтина Афанасьевна</h2>
+      <div class="meta-info">📅 Рождение: Июль 1943 года | 🌿 Мама Елены и Марины, бабушка Марии, Леонида, Александры и Анастасии, прабабушка Веры</div>
+      <div class="person-desc">
+        <p>Алевтина Афанасьевна — мудрый старейшина семьи, её опора и живая история рода. Она принадлежит к поколению детей войны, чей характер закалён трудом, терпением и любовью к близким.</p>
+        <p>Несмотря на почтенный возраст, бабушка Аля сохраняет бодрость духа и энергию. Она вырастила дочерей, нянчила внуков, а сейчас с нежностью помогает воспитывать правнучку Веру. До сих пор с удовольствием трудится на огороде, щедро делится опытом, а к её мудрым советам всегда прислушиваются. Когда Мария и Михаил приобрели свой дачный участок, бабушка Аля лично посадила там первые два куста помидоров — этот жест стал настоящим благословением семейного дома на уют и процветание.</p>
+      </div>
+    </section>
 
-        <!-- ВЕТКА 1: ПАРКАЕВЫ -->
-        <section class="branch-section">
-            <h3 class="branch-title"><span>🌿</span> Семья Паркаевых</h3>
-            
-            <img src="https://i.postimg.cc/NFyDLsDF/DSC-1149.jpg" alt="Семья Паркаевых" class="branch-banner">
+    <!-- ТРИ ВЕТВИ -->
+    <div class="branches-grid">
 
-            <div class="members-grid">
-                <div class="member-card">
-                    <img src="https://i.postimg.cc/vB2XQgrV/IMG-4801.jpg" alt="Михаил Паркаев" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Михаил'">
-                    <h3>Михаил Паркаев</h3>
-                    <span class="member-role">Папа</span>
-                    <p>Опора и глава семьи, мастер на все руки и вдохновитель.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/maria_yuzhanina.jpg" alt="Мария Южанина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Мария'">
-                    <h3>Мария Южанина</h3>
-                    <span class="member-role">Мама</span>
-                    <p>Хранительница домашнего уюта, заботы и тепла.</p>
-                </div>
-                <div class="member-card">
-                    <img src="https://i.postimg.cc/JnYK1Db9/IMG-5049.jpg" alt="Вера Паркаева" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Вера'">
-                    <h3>Вера Паркаева</h3>
-                    <span class="member-role">Дочь</span>
-                    <p>Радость семьи, новые открытия, учеба и творчество.</p>
-                </div>
-            </div>
-        </section>
+      <!-- ВЕТКА 1: ПАРКАЕВЫ-ЮЖАНИНЫ -->
+      <div class="branch-card">
+        <h2 class="branch-title">Семья Паркаевых – Южаниных <span>🏡</span></h2>
 
-        <!-- ВЕТКА 2: БАМБУРОВЫ-СКУЛКИНЫ -->
-        <section class="branch-section">
-            <h3 class="branch-title"><span>🏡</span> Семья Бамбуровых-Скулкиных</h3>
-            <div class="members-grid">
-                <div class="member-card">
-                    <img src="images/valery_skulkin.jpg" alt="Валерий Скулкин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Валерий'">
-                    <h3>Валерий Скулкин</h3>
-                    <span class="member-role">Папа</span>
-                    <p>Надежная поддержка, мудрость и душевные разговоры.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/marina_bamburova.jpg" alt="Марина Бамбурова" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Марина'">
-                    <h3>Марина Бамбурова</h3>
-                    <span class="member-role">Мама</span>
-                    <p>Энергия, забота о близких и сердце семейного очага.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/alexandra_skulkina.jpg" alt="Александра Скулкина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Александра'">
-                    <h3>Александра Скулкина</h3>
-                    <span class="member-role">Старшая дочь</span>
-                    <p>Целеустремленность, творчество и новые достижения.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/anastasia_skulkina.jpg" alt="Анастасия Скулкина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Анастасия'">
-                    <h3>Анастасия Скулкина</h3>
-                    <span class="member-role">Младшая дочь</span>
-                    <p>Улыбки, любознательность и яркие увлечения.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Вера -->
+        <div class="person-card">
+          <img src="https://i.postimg.cc/pT3Ld6r2/photo-2026-02-19-15-05-36.jpg" alt="Паркаева Вера" class="vera-photo" onerror="this.style.display='none'">
+          <div class="person-header">
+            <h3 class="person-name">Паркаева Вера</h3>
+            <span class="tag">Младшее поколение</span>
+          </div>
+          <div class="person-relation">Дочь Марии Южаниной и Михаила Паркаева | 📅 25 декабря 2018 года</div>
+          <div class="person-desc">
+            <p>Вера — яркая, творческая и разносторонняя девочка. В этом году у неё начинается важный жизненный этап: она идёт в <strong>1 «В» класс</strong> Нижегородской авторской академической школы (НААШ № 186).</p>
+            <p>Одно из её любимых творческих хобби — цифровое рисование в приложении Simple Draw, где она создаёт красочные работы. Кроме того, Вера обожает музыку и движение: она с большим удовольствием занимается танцами и активно посещает <strong>танцевальную студию «Ассорти»</strong>.</p>
+          </div>
+        </div>
 
-        <!-- ВЕТКА 3: БАМБУРОВЫ-ЮЖАНИНЫ -->
-        <section class="branch-section">
-            <h3 class="branch-title"><span>☀️</span> Семья Бамбуровых-Южаниных</h3>
-            
-            <img src="https://i.postimg.cc/wMt23q2s/IMG-2989.jpg" alt="Семья Бамбуровых-Южаниных" class="branch-banner">
+        <!-- Мария -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Южанина Мария</h3>
+            <span class="tag">Вайб-разработчик рода</span>
+          </div>
+          <div class="person-relation">Жена Михаила Паркаева, мама Веры | 📅 19 июля 1990 года</div>
+          <div class="person-desc">
+            <p>Мария — человек с неиссякаемой созидательной энергией. По образованию она врач, но её таланты простираются гораздо шире: она открыта новым технологиям, осваивает вайб-кодинг и создаёт цифровые проекты для семьи.</p>
+            <p>Особое место занимает кондитерское мастерство: в декрете Мария научилась печь изысканные торты и нежнейший домашний зефир. В садике у Веры она с успехом проводила душевные мастер-классы по изготовлению пирожного «Картошка».</p>
+          </div>
+        </div>
 
-            <div class="members-grid">
-                <div class="member-card">
-                    <img src="https://i.postimg.cc/d1Nnqk2C/IMG-4825.jpg" alt="Бабушка Аля" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Бабушка+Аля'">
-                    <h3>Бабушка Аля</h3>
-                    <span class="member-role">Бабушка</span>
-                    <p>Хранительница семейных корней, неиссякаемая мудрость, забота и любовь.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/sergey_yuzhanin.jpg" alt="Сергей Южанин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Сергей'">
-                    <h3>Сергей Южанин</h3>
-                    <span class="member-role">Папа</span>
-                    <p>Мудрый советчик, надежная защита и опора для всех близких.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/elena_bamburova.jpg" alt="Елена Бамбурова" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Елена'">
-                    <h3>Елена Бамбурова</h3>
-                    <span class="member-role">Мама</span>
-                    <p>Душа семьи, неиссякаемая забота, гармония и тепло.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/maria_yuzhanina_branch3.jpg" alt="Мария Южанина" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Мария'">
-                    <h3>Мария Южанина</h3>
-                    <span class="member-role">Дочь</span>
-                    <p>Связующая нить поколений, искренность и доброта.</p>
-                </div>
-                <div class="member-card">
-                    <img src="images/leonid_yuzhanin.jpg" alt="Леонид Южанин" class="avatar-img" onerror="this.src='https://placehold.co/110x110?text=Леонид'">
-                    <h3>Леонид Южанин</h3>
-                    <span class="member-role">Сын</span>
-                    <p>Инициативность, интерес к миру и новые победы.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Михаил -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Паркаев Михаил</h3>
+            <span class="tag">Врач и капитан</span>
+          </div>
+          <div class="person-relation">Муж Марии Южаниной, папа Веры | 📅 14 ноября 1989 года</div>
+          <div class="person-desc">
+            <p>Михаил — человек с тонкой, внимательной и педантичной натурой. По образованию врач, что определило его глубокий и ответственный подход к жизни.</p>
+            <p>Увлекается водной стихией: обожает управлять моторной лодкой и скорость. Вместе с Марией они приобрели дачный участок, где с вдохновением обустраивают уютный семейный загородный уголок.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВЕТКА 2: БАМБУРОВЫ-ЮЖАНИНЫ -->
+      <div class="branch-card">
+        <h2 class="branch-title">Семья Бамбуровых – Южаниных <span>🌲</span></h2>
+
+        <!-- Елена -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Бамбурова Елена</h3>
+            <span class="tag">Хранительница уюта</span>
+          </div>
+          <div class="person-relation">Жена Сергея Южанина, мама Марии и Леонида | 📅 19 августа 1968 года</div>
+          <div class="person-desc">
+            <p>Елена — сердце семьи, заботливая и чуткая мама. Её главное вдохновение — загородная дача с классной баней, куда вся семья с радостью приезжает летом и встречает Новый год.</p>
+            <p>Особая радость в доме — любимая собачка Дуня. А недавняя покупка — яркий красный трёхместный трицикл — добавила загородной жизни отличного драйва и веселья!</p>
+          </div>
+        </div>
+
+        <!-- Сергей -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Южанин Сергей Леонидович</h3>
+            <span class="tag">Мастер золотые руки</span>
+          </div>
+          <div class="person-relation">Муж Елены Бамбуровой, папа Марии и Леонида | 📅 3 апреля 1966 года</div>
+          <div class="person-desc">
+            <p>Сергей Леонидович — надёжная опора семьи, человек со спокойным характером и золотыми руками. Вся тонкая внутренняя отделка дома, технические работы и благоустройство дачной усадьбы выполнены им с мужской основательностью.</p>
+          </div>
+        </div>
+
+        <!-- Леонид -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Южанин Леонид</h3>
+            <span class="tag">Предприниматель</span>
+          </div>
+          <div class="person-relation">Сын Сергея и Елены, брат Марии Южаниной</div>
+          <div class="person-desc">
+            <p>Леонид — целеустремлённый и предприимчивый молодой человек. Окончил московский институт РАНХиГС при Президенте РФ. Успешно руководит собственным бизнесом, обустраивает свою квартиру и уверенно покоряет новые вершины.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВЕТКА 3: БАМБУРОВЫ-СКУЛКИНЫ -->
+      <div class="branch-card">
+        <h2 class="branch-title">Семья Бамбуровых – Скулкиных <span>🌾</span></h2>
+
+        <!-- Марина -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Бамбурова Марина</h3>
+            <span class="tag">КМС по плаванию & Лидер</span>
+          </div>
+          <div class="person-relation">Дочь бабушки Али, сестра Елены, тётя и крёстная мама Марии | 📅 11 июля 1972 года</div>
+          <div class="person-desc">
+            <p>Спортсменка, комсомолка и красавица! Кандидат в мастера спорта по плаванию. Успешный директор и управленец в продажах с мощной организаторской жилкой. Чуткая, заботливая крёстная мама, всегда готовая поддержать мудрым словом.</p>
+          </div>
+        </div>
+
+        <!-- Валерий -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Скулкин Валерий</h3>
+            <span class="tag">Хозяин усадьбы</span>
+          </div>
+          <div class="person-relation">Муж Марины Бамбуровой</div>
+          <div class="person-desc">
+            <p>Валерий живёт в деревне, обустраивает гостеприимный деревенский быт и аренду домиков. Любит мастерить и кататься на лодке. В хозяйстве дружно живут куры, собака Долли и коты Филимон и Симба. Семья обожает приезжать к нему в знаменитую баню.</p>
+          </div>
+        </div>
+
+        <!-- Галина Тумакова -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Тумакова Галина</h3>
+            <span class="tag">Добрая душа</span>
+          </div>
+          <div class="person-relation">Родственница Валерия Скулкина</div>
+          <div class="person-desc">
+            <p>Очень добрый, светлый и заботливый человек. Всегда заботится обо всей семье, прекрасно готовит и окружает близких домашним теплом. Замечательная, любящая бабушка.</p>
+          </div>
+        </div>
+
+        <!-- Александра -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Скулкина Александра</h3>
+            <span class="tag">Международный опыт</span>
+          </div>
+          <div class="person-relation">Дочь Марины Бамбуровой и Валерия Скулкина</div>
+          <div class="person-desc">
+            <p>Умная и самостоятельная девушка. Получив высшее образование, выбрала путь личностного роста и сейчас живёт и развивается в солнечном Таиланде, сохраняя крепкую связь с семьёй.</p>
+          </div>
+        </div>
+
+        <!-- Анастасия -->
+        <div class="person-card">
+          <div class="person-header">
+            <h3 class="person-name">Скулкина Анастасия</h3>
+            <span class="tag">Выпускница ВШЭ & Творчество</span>
+          </div>
+          <div class="person-relation">Дочь Марины Бамбуровой и Валерия Скулкина</div>
+          <div class="person-desc">
+            <p>Талантливая выпускница Высшей школы экономики (ВШЭ). Прекрасно поёт, любит кулинарное искусство и сейчас активно развивает свою профессиональную карьеру в Сербии.</p>
+          </div>
+        </div>
+
+      </div>
 
     </div>
 
     <footer>
-        Дружная семья &copy; 2026
+      <p>Семейный архив • С любовью создано для будущих поколений</p>
     </footer>
+  </div>
 
 </body>
 </html>
